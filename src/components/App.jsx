@@ -50,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="title">React Reminder</div>
+        <div className="title">React Reminder </div>
         <div className="form-inline reminder-form">
           <div className="form-group">
             <input
