@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addReminder, deleteReminder } from "../actions";
+import { addReminder, deleteReminder, clearReminders } from "../actions";
 import moment from "moment";
 
 class App extends Component {
@@ -29,9 +29,9 @@ class App extends Component {
           return (
             <li key={reminder.id} className="list-group-item">
               <div className="list-item">
-                <div> {reminder.text}</div>
+                <div>{reminder.text}</div>
                 <div>
-                  <em> {moment(new Date(reminder.dueDate)).fromNow()} </em>
+                  <em>{moment(new Date(reminder.dueDate)).fromNow()}</em>
                 </div>
               </div>
               <div
@@ -51,11 +51,11 @@ class App extends Component {
     return (
       <div className="App">
         <div className="title">React Reminder</div>
-        <div className="form-inline">
+        <div className="form-inline reminder-form">
           <div className="form-group">
             <input
               className="form-control"
-              placeholder="Remind me to..."
+              placeholder="I have to..."
               onChange={event => this.setState({ text: event.target.value })}
             />
             <input
@@ -73,6 +73,12 @@ class App extends Component {
           </button>
         </div>
         {this.renderReminders()}
+        <div
+          className="btn btn-danger"
+          onClick={() => this.props.clearReminders()}
+        >
+          Clear Reminders
+        </div>
       </div>
     );
   }
@@ -83,7 +89,8 @@ function mapStateToProps(state) {
     reminders: state
   };
 }
+
 export default connect(
   mapStateToProps,
-  { addReminder, deleteReminder }
+  { addReminder, deleteReminder, clearReminders }
 )(App);
